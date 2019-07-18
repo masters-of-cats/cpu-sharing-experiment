@@ -1,0 +1,10 @@
+Let's build a simulation of the good/bad categorizaton
+
+- create an idle long running process
+- make the process consume cpu like crazy (bad)
+- make the process stop consuming cpu (good)
+
+- This way we will be able to spin up a desired number of apps and make them bahave the way we want
+- Have a script that knows all processes pids and that can move them between the two categories.
+
+

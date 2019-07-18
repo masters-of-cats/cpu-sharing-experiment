@@ -1,0 +1,5 @@
+#!/bin/sh
+
+DIR=$(dirname $0)
+
+kill "$(cat "$DIR/../$1/pidfile")"
