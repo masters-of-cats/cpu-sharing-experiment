@@ -7,4 +7,6 @@ Let's build a simulation of the good/bad categorizaton
 - This way we will be able to spin up a desired number of apps and make them bahave the way we want
 - Have a script that knows all processes pids and that can move them between the two categories.
 
-
+---------------
+Cell: 10000 shares
+App:   1000 shares, and is guaranteed to have at leas 10% of the host CPU (20% on a 2 core machine)

@@ -19,7 +19,7 @@ function delete_cgroup {
 
 function cleanup {
  rm -rf "$APP_DIR"
- echo $$ > /sys/fs/cgroup/cpu/tasks
+ echo $$ > /sys/fs/cgroup/cpu/cgroup.procs
  delete_cgroup "good"
  delete_cgroup "bad"
  exit
@@ -48,6 +48,6 @@ mkdir "$APP_DIR"
 mkdir -p "/sys/fs/cgroup/cpu/good/$1"
 
 echo $$ > "$APP_DIR/pidfile"
-echo $$ > "/sys/fs/cgroup/cpu/good/$1/tasks"
+echo $$ > "/sys/fs/cgroup/cpu/good/$1/cgroup.procs"
 
 parallel -n0 eat_cpu ::: $APP_NAME $APP_NAME

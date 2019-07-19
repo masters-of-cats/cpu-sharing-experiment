@@ -22,12 +22,12 @@ function delete_cgroup {
 case $DESTINATION in
 good)
   mkdir -p "/sys/fs/cgroup/cpu/good/$1"
-  echo $APP_PID > /sys/fs/cgroup/cpu/good/$APP_NAME/tasks
+  echo $APP_PID > /sys/fs/cgroup/cpu/good/$APP_NAME/cgroup.procs
   delete_cgroup "bad"
   ;;
 bad)
   mkdir -p "/sys/fs/cgroup/cpu/bad/$1"
-  echo $APP_PID > /sys/fs/cgroup/cpu/bad/$APP_NAME/tasks
+  echo $APP_PID > /sys/fs/cgroup/cpu/bad/$APP_NAME/cgroup.procs
   delete_cgroup "good"
   ;;
 esac

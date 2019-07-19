@@ -26,7 +26,7 @@ func main() {
 	signal.Notify(sigs, syscall.SIGTERM)
 	go func() {
 		<-sigs
-		must(ioutil.WriteFile("/sys/fs/cgroup/cpu/tasks", []byte(pid), 0755))
+		must(ioutil.WriteFile("/sys/fs/cgroup/cpu/cgroup.procs", []byte(pid), 0755))
 		must(deleteCgroup(goodCgroupPath))
 		must(deleteCgroup(badCgroupPath))
 		must(os.RemoveAll(appDir))
@@ -37,7 +37,8 @@ func main() {
 	must(os.MkdirAll(goodCgroupPath, 0755))
 
 	must(ioutil.WriteFile(filepath.Join(appDir, "pidfile"), []byte(pid), 0755))
-	must(ioutil.WriteFile(filepath.Join(goodCgroupPath, "tasks"), []byte(pid), 0755))
+	must(ioutil.WriteFile(filepath.Join(goodCgroupPath, "cgroup.procs"), []byte(pid), 0755))
+	must(ioutil.WriteFile(filepath.Join(goodCgroupPath, "cpu.shares"), []byte("1000"), 0755))
 
 	for i := 0; i < runtime.NumCPU(); i++ {
 		go eatCPU(appDir)
