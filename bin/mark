@@ -6,13 +6,28 @@ APP_NAME=$1
 DESTINATION=$2
 APP_PID=$(cat "$DIR/../$APP_NAME/pidfile")
 
+function delete_cgroup {
+  if [ ! -d "/sys/fs/cgroup/cpu/$1/$APP_NAME" ]; then
+    return
+  fi
+
+  while true; do
+   if rmdir "/sys/fs/cgroup/cpu/$1/$APP_NAME" 2> /dev/null; then
+     break
+   fi
+   sleep .1
+ done
+}
+
 case $DESTINATION in
 good)
   mkdir -p "/sys/fs/cgroup/cpu/good/$1"
   echo $APP_PID > /sys/fs/cgroup/cpu/good/$APP_NAME/tasks
+  delete_cgroup "bad"
   ;;
 bad)
   mkdir -p "/sys/fs/cgroup/cpu/bad/$1"
   echo $APP_PID > /sys/fs/cgroup/cpu/bad/$APP_NAME/tasks
+  delete_cgroup "good"
   ;;
 esac

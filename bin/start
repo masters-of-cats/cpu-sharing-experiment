@@ -3,4 +3,4 @@
 DIR=$(dirname $0)
 
 
-"$DIR/app.sh" $1 &
+"$DIR/app" $1 &
